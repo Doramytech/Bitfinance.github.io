@@ -167,146 +167,74 @@ ul .active{
     border-radius: 60px;
 }
 
-.ticker-container {
+.ticker-wrap{
     width: 100%;
-    overflow: hidden; 
-    /* background-color: #79c916;  */
-    padding: 20px 0;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    /* transform: rotate(2deg); */
-    margin: 50px 0;
-}
-.thicker-wrap{
-    width: 100%;
-    overflow: hidden;
-    padding: 20px 0;
-    position: relative;
-    background: rgba(10, 26, 13, 0.95);
-}
-.ticker-wrap::before{
-    content: '';
-    position: absolute;
-    inset: 0;
-    /* width: 80%;
-    height: 80%; */
-    background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-}
-.ticker-track{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: max-content;
-    white-space: nowrap;
-    animation: scroll 40s linear infinite;
-    position: relative;
-    z-index: 1;
-    will-change: transform;
-}
-.ticker-track:hover{
-    animation-play-state: paused;
-}
-@keyframes scroll {
-    0%{
-        transform: translateX(0);
-    }
-    100%{
-        transform: translateX(-50%);
-    }
-}
-.coin-icon{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #fff;
-    flex-shrink: 0;
-}
-.coin-item{
-    display: inline-flex;
-    align-items: center;
-    margin-right: 60px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: all .4s ease;
-    white-space: nowrap;
-    animation: floatCoin 3s ease-in-out infinite;
-}
-.coin-item:nth-child(odd){
-    animation-delay: .5s;
-}
-.coin-item:nth-child(3n){
-    animation-delay: 1s;
-}
-.coin-item:nth-child(5n){
-    animation-delay: 1.5s;
-}
-@keyframes floatCoin {
-    0%, 100%{
-        transform: translateY(0);
-    }
-    50%{
-        transform: translateY(-6px);
-    }
+    padding: 30px;
 }
 
-  .coin-item:hover {
-    transform: translateY(-8px) scale(1.08);
-    border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 0 10px #0B8902;
-    z-index: 10;
+.ticker-track{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
+
+.coin-item{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    margin-right: 0;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.02)
+    );
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+
+    transition: 0.4s ease;
+}
+
+.coin-item:hover{
+    transform: translateY(-5px);
+}
+
 .coin-info{
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 6px;
 }
-.coin-sym{
-    color: #65C800;
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 1px;
+
+.more-btn{
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
 }
-.coin-price {
-    color: #fff;
+
+.more-btn button{
+    padding: 14px 30px;
+    border: none;
+    border-radius: 50px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(0,212,255,0.2),
+        rgba(0,255,136,0.15)
+    );
+
+    color: #00d4ff;
     font-weight: 700;
-    font-size: 1.15rem;
-    margin-top: 2px;
-    transition: all 0.3s;
-}
-.coin-price.flash-up {
-    color: #00ff88;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
-.coin-price.flash-down {
-    color: #ff4757;
-    text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
-}
-.coin-change.up{
-    color: #79c916;
-}
-.coin-change.down{
-    color: #ff4757;
-}
-  .separator {
-    color: rgba(0, 212, 255, 0.3);
-    font-size: 1.5rem;
-    margin-right: 60px;
-    animation: pulseDot 2s infinite;
-  }
-
-  @keyframes pulseDot {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+.more-btn button:hover{
+    transform: translateY(-3px);
 }
 .text2{
     color: white;

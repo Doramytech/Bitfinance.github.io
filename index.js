@@ -86,72 +86,63 @@ async function fetchPrices() {
   }
 }
 
-function render(data) {
+let expanded = false;
 
-  const track = document.getElementById('tickerTrack');
+function render(data){
 
-  let html = '';
+    const track = document.getElementById("tickerTrack");
 
-  Object.entries(COINS).forEach(([sym, config]) => {
+    let html = "";
 
-    const coinData = data[config.id];
+    const entries = Object.entries(COINS);
 
-    const price = coinData?.usd;
+    const visibleCoins = expanded
+        ? entries
+        : entries.slice(0, 6);
 
-    const change24h = coinData?.usd_24h_change ?? 0;
+    visibleCoins.forEach(([sym, config]) => {
 
-    const prev = previousPrices[sym];
+        const coinData = data[config.id];
 
-    const flashClass =
-      prev && price > prev
-        ? 'flash-up'
-        : prev && price < prev
-        ? 'flash-down'
-        : '';
+        const price = coinData?.usd;
 
-    const changeClass =
-      change24h >= 0 ? 'up' : 'down';
+        const change24h = coinData?.usd_24h_change ?? 0;
 
-    const changeArrow =
-      change24h >= 0 ? '▲' : '▼';
+        const changeClass =
+            change24h >= 0 ? "up" : "down";
 
-    html += `
-      <div class="coin-item" id="item-${sym}">
+        const changeArrow =
+            change24h >= 0 ? "▲" : "▼";
 
-        <div class="coin-icon"
-             style="background:${config.color}">
-          ${config.icon}
+        html += `
+        
+        <div class="coin-item">
+
+            <div class="coin-icon"
+                 style="background:${config.color}">
+                 ${config.icon}
+            </div>
+
+            <div class="coin-info">
+
+                <span class="coin-sym">
+                    ${sym}
+                </span>
+
+                <span class="coin-price">
+                    ${fmt(price)}
+                </span>
+
+                <span class="coin-change ${changeClass}">
+                    ${changeArrow}
+                    ${Math.abs(change24h).toFixed(2)}%
+                </span>
+
+            </div>
+
         </div>
-
-        <div class="coin-info">
-
-          <span class="coin-sym">${sym}</span>
-
-          <span class="coin-price ${flashClass}"
-                id="price-${sym}">
-            ${fmt(price)}
-          </span>
-
-          <span class="coin-change ${changeClass}"
-                id="change-${sym}">
-
-            ${changeArrow}
-            ${Math.abs(change24h).toFixed(2)}%
-
-          </span>
-
-        </div>
-
-      </div>
-
-      <span class="separator">◆</span>
-    `;
-
-    if(price !== undefined){
-      previousPrices[sym] = price;
-    }
-
-  });
+        `;
+    });
 
   // seamless loop
   track.innerHTML = html + html;
@@ -177,6 +168,22 @@ function render(data) {
 fetchPrices();
 
 setInterval(fetchPrices, 10000);
+
+const readMoreBtn =
+    document.getElementById("readMoreBtn");
+
+readMoreBtn.addEventListener("click", () => {
+
+    expanded = !expanded;
+
+    fetchPrices();
+
+    readMoreBtn.textContent =
+        expanded
+        ? "Show Less"
+        : "Read More";
+
+});
 
 const isMobile = window.innerWidth < 768;
 
