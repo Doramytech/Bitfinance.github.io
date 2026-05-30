@@ -208,3 +208,44 @@ menuBar.addEventListener("click", () => {
         : '<i class="ri-menu-2-line"></i>';
 
 });
+
+const html = document.documentElement;
+const btnDark = document.getElementById('btnDark');
+const btnLight = document.getElementById('btnLight');
+
+// Check saved preference or system preference
+const savedTheme = localStorage.getItem('bitfinance-theme');
+const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+    updateToggleUI(savedTheme);
+} else if (!systemPrefersDark) {
+    html.setAttribute('data-theme', 'light');
+    updateToggleUI('light');
+}
+
+function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('bitfinance-theme', theme);
+    updateToggleUI(theme);
+}
+
+function updateToggleUI(theme) {
+    if (theme === 'light') {
+        btnLight.classList.add('active');
+        btnDark.classList.remove('active');
+    } else {
+        btnDark.classList.add('active');
+        btnLight.classList.remove('active');
+    }
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('bitfinance-theme')) {
+        const theme = e.matches ? 'dark' : 'light';
+        html.setAttribute('data-theme', theme);
+        updateToggleUI(theme);
+    }
+});

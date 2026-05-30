@@ -20,8 +20,15 @@
      <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<base target="_blank">
 </head>
 <body>
+
+<!-- ========== THEME TOGGLE ========== -->
+<div class="theme-toggle" id="themeToggle">
+  <button class="toggle-btn active" id="btnDark" onclick="setTheme('dark')" title="Dark Mode">🌙</button>
+  <button class="toggle-btn" id="btnLight" onclick="setTheme('light')" title="Light Mode">☀️</button>
+</div>
     <header>
         <h2 id="menu-bar"><i class="ri-menu-2-line"></i></h2>
         <div class="logo">
@@ -63,7 +70,7 @@
         </div>
 
          <div class="image1">
-            <img src="finance/h4_img1.jpg" alt="">
+            <img src="finance/h4_img1.jpg" alt="" class="img-white">
         </div>
 
 
@@ -381,5 +388,7 @@
 
     
 <script src="index.js"></script>
+
+
 </body>
 </html>
